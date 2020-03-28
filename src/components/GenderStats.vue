@@ -138,6 +138,5 @@ export default {
   }
   .info-heading {
     font-size: 0.5em;
-    font-weight: 800;
   }
 </style>

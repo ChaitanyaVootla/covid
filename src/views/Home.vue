@@ -16,7 +16,18 @@
         </a>
       </el-menu-item>
     </el-menu>
-    <el-row class="mt-20">
+    <el-row>
+      <el-col :span="18" :offset="3">
+        <div class="m-20 mb-0">
+          <el-button :type="timefilterEnabled?'primary':'info'" icon="el-icon-time" circle @click="timefilterEnabled = !timefilterEnabled">
+          </el-button>
+        </div>
+        <el-card shadow="always" class="m-20 mb-0" v-show="timefilterEnabled">
+          <TimeSlider v-if="stateWiseData.length"/>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
       <!-- left half -->
       <el-col :span="9" :offset="3">
         <div class="nation-wide-stats-container">
@@ -31,7 +42,14 @@
         </div>
       </el-col>
       <!-- right half -->
-      <el-col :span="8">
+      <el-col :span="9">
+        <el-card shadow="always" class="m-20">
+          <IndiaMap v-if="stateWiseData.length"/>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="9" :offset="3">
         <el-card shadow="always" class="extra-stats-card m-20">
           <el-tabs :value="'first'" type="card">
             <el-tab-pane label="SPREAD TRENDS" name="first">
@@ -46,9 +64,11 @@
             </el-tab-pane>
           </el-tabs>
         </el-card>
+      </el-col>
+      <el-col :span="9">
         <el-card shadow="always" class="extra-stats-card m-20">
           <el-tabs :value="'fourth'" type="card">
-            <el-tab-pane label="TRAVEL STATS" name="fourth">
+            <el-tab-pane label="PATIENT TRAVEL STATS" name="fourth">
               <div class="gender-stats-container" v-if="stateWiseData.length">
                 <TravelStats/>
               </div>
@@ -73,6 +93,8 @@ import NationWideGraph from '../components/NationWideGraph.vue'
 import GenderStats from '../components/GenderStats.vue'
 import AgeGraph from '../components/AgeGraph.vue'
 import TravelStats from '../components/TravelStats.vue'
+import IndiaMap from '../components/IndiaMap.vue'
+import TimeSlider from '../components/TimeSlider.vue'
 
 export default {
   name: "Home",
@@ -83,6 +105,8 @@ export default {
     GenderStats,
     AgeGraph,
     TravelStats,
+    IndiaMap,
+    TimeSlider,
   },
   computed: {
     stateWiseData() {
@@ -93,6 +117,11 @@ export default {
     patientData() {
       return store.getters.getPatientData;
     },
+  },
+  data() {
+    return {
+      timefilterEnabled: false
+    }
   }
 };
 </script>

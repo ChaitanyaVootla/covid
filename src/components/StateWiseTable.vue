@@ -2,7 +2,7 @@
   <div>
     <el-table
       :data="stateWiseData"
-      max-height="600">
+      max-height="640">
       <el-table-column type="expand">
         <template slot-scope="scope">
           <div v-for="(data, district) in scope.row.districtData" :key="district" class="district-info-list">
@@ -110,55 +110,56 @@
         </el-table-column>
       </el-table>
     </el-dialog>
-    <!-- TODOS:
-      spread rate
-      gender stats
-      age graph -->
   </div>
 </template>
 
 <script>
-import store from "../store";
+  import store from "../store";
+  import _ from 'lodash';
 
-export default {
-  name: "StateWiseTable",
-  data() {
-    return {
-      patientsDialogVisibility: false,
-      dialogPatientsData: [],
-      dialogStateName: '',
-      dialogDistrictName: '',
-    }
-  },
-  computed: {
-    stateWiseData() {
-      let stateWiseData = store.getters.getStateWiseData;
-      const districtWiseData = store.getters.getDistrictWiseData;
-      const patientData = store.getters.getPatientData;
-      stateWiseData = stateWiseData.map( stateData => {
-        stateData.districtData = districtWiseData[stateData.state]?.districtData;
-        if (stateData.districtData) {
-          Object.keys(stateData.districtData).map(dist => {
-            stateData.districtData[dist].patients = patientData.filter(({district}) => district === dist);
-          })
-        }
-        return stateData
-      })
-      return stateWiseData;
+  export default {
+    name: "StateWiseTable",
+    data() {
+      return {
+        patientsDialogVisibility: false,
+        dialogPatientsData: [],
+        dialogStateName: '',
+        dialogDistrictName: '',
+      }
     },
-  },
-  methods: {
-    showPatientDetails(state, district, patientsData) {
-      this.dialogPatientsData = patientsData;
-      this.dialogStateName = state;
-      this.dialogDistrictName = district;
-      this.patientsDialogVisibility = true;
+    computed: {
+      stateWiseData() {
+        let stateWiseData = store.getters.getStateWiseData;
+        const districtWiseData = store.getters.getDistrictWiseData;
+        const patientData = store.getters.getPatientData;
+        stateWiseData = stateWiseData.map( stateData => {
+          stateData.districtData = districtWiseData[stateData.state]?.districtData;
+          if (stateData.districtData) {
+            Object.keys(stateData.districtData).map(dist => {
+              stateData.districtData[dist].patients = patientData.filter(({district}) => district === dist);
+            })
+          }
+          return stateData
+        })
+        return _.sortBy(stateWiseData,
+          data => {
+            return -+data.confirmed;
+          }
+        );
+      },
     },
-    getURLHost(url) {
-      return new URL(url).hostname;
+    methods: {
+      showPatientDetails(state, district, patientsData) {
+        this.dialogPatientsData = patientsData;
+        this.dialogStateName = state;
+        this.dialogDistrictName = district;
+        this.patientsDialogVisibility = true;
+      },
+      getURLHost(url) {
+        return new URL(url).hostname;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style scoped lang="less">

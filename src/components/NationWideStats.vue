@@ -59,8 +59,7 @@ export default {
     color: #606266 !important;
   }
   .small-text {
-      font-size: 0.5em;
-      font-weight: 800;
+      font-size: 0.6em;
   }
   .percentage-text {
       font-size: 0.6em;

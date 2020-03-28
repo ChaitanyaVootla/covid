@@ -18,7 +18,7 @@ export default {
 
 <style>
   body {
-    font-family: sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 22px!important;
     font-weight: 700;
     background-color: #ddd;
@@ -69,6 +69,12 @@ export default {
   .m-20 {
     margin: 20px;
   }
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  .mt-0 {
+    margin-top: 0 !important;
+  }
   .bold {
     font-weight: bold;
   }
@@ -94,5 +100,8 @@ export default {
   }
   .el-table__body-wrapper:hover {
     overflow-y: auto !important;
+  }
+  .el-tabs__item {
+    font-weight: 600 !important;
   }
 </style>
