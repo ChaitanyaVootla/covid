@@ -21,6 +21,8 @@ export default {
     font-family: sans-serif;
     font-size: 22px!important;
     font-weight: 700;
+    background-color: #f5f5f5;
+    margin: 0;
   }
   .card {
       border: 1px solid #ebebeb;
@@ -31,6 +33,9 @@ export default {
   }
   .text-right {
       text-align: right;
+  }
+  .text-left {
+      text-align: left !important;
   }
   /* text colors */
   .text-danger {

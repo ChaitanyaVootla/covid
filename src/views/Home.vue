@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-menu mode="horizontal" active-text-color="white">
+    <el-menu mode="horizontal"
+      active-text-color="#ddd"
+      background-color="#333"
+      text-color="#ddd">
       <el-menu-item index="1" class="nav-heading">
         <img src="@/assets/icon.png" class="nav-icon"/>
         COVID-19 INDIA
@@ -8,21 +11,21 @@
     </el-menu>
     <el-row class="mt-20">
       <!-- left half -->
-      <el-col :span="9" :offset="2">
+      <el-col :span="9" :offset="3">
         <div class="nation-wide-stats-container">
-          <el-card shadow="hover" class="m-20">
+          <el-card shadow="always" class="m-20">
             <NationWideStats/>
           </el-card>
         </div>
         <div class="state-wise-table-container">
-          <el-card shadow="hover" class="m-20">
+          <el-card shadow="always" class="m-20">
             <StateWiseTable/>
           </el-card>
         </div>
       </el-col>
       <!-- right half -->
       <el-col :span="8">
-        <el-card shadow="hover" class="extra-stats-card m-20">
+        <el-card shadow="always" class="extra-stats-card m-20">
           <el-tabs :value="'first'">
             <el-tab-pane label="NATIONAL STATS" name="first">
               <div class="state-wise-table-container" v-if="stateWiseData.length">
@@ -99,9 +102,9 @@ export default {
   /* nav styles */
   .nav-heading{
     font-size: 1.1em !important;
-    color: #606266 !important;
   }
   .nav-icon {
     height: 2.2em;
+    filter: invert(100%);
   }
 </style>

@@ -20,10 +20,10 @@
       <el-table-column
         width="150">
         <template slot="header">
-          <div class="table-header">State</div>
+          <div class="table-header text-left">State</div>
         </template>
         <template slot-scope="scope">
-          <div class="state-count bold wrap-word">{{ scope.row.state }}</div>
+          <div class="state-count text-left bold wrap-word">{{ scope.row.state }}</div>
         </template>
       </el-table-column>
       <el-table-column>
