@@ -18,10 +18,6 @@
     </el-menu>
     <el-row>
       <el-col :span="18" :offset="3">
-        <div class="m-20 mb-0">
-          <el-button :type="timefilterEnabled?'primary':'info'" icon="el-icon-time" circle @click="timefilterEnabled = !timefilterEnabled">
-          </el-button>
-        </div>
         <el-card shadow="always" class="m-20 mb-0" v-show="timefilterEnabled">
           <TimeSlider v-if="stateWiseData.length"/>
         </el-card>
@@ -46,6 +42,26 @@
         <el-card shadow="always" class="m-20">
           <IndiaMap v-if="stateWiseData.length"/>
         </el-card>
+      </el-col>
+      <el-col :span="1" :offset="2">
+        <div class="m-20">
+          <div>
+            <el-tooltip class="item mt-20" effect="dark" content="Time slider (coming soon!)" placement="left">
+              <el-button :type="timefilterEnabled?'primary':'info'" circle @click="timefilterEnabled = !timefilterEnabled">
+                <i class="fas fa-clock"></i>
+              </el-button>
+            </el-tooltip>
+          </div>
+          <div class="mt-20">
+            <el-tooltip class="item" effect="dark" content="Github repo" placement="left">
+              <a href="https://github.com/ChaitanyaVootla/covid" target="_blank">
+                <el-button class="github-button" circle>
+                  <i class="fas fa-code-branch"></i>
+                </el-button>
+              </a>
+            </el-tooltip>
+          </div>
+        </div>
       </el-col>
     </el-row>
     <el-row>
@@ -148,5 +164,10 @@ export default {
   }
   .el-icon-takeaway-box {
     color: black;
+  }
+  .github-button {
+    background-color: #6e5494 !important;
+    color: white;
+    width: 40px;
   }
 </style>
