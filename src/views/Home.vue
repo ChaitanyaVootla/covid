@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-menu mode="horizontal"
-      active-text-color="#ddd"
-      background-color="#333"
-      text-color="#ddd">
+      background-color="#ffa500"
+      active-text-color="#333"
+      text-color="#333">
       <el-menu-item index="1" class="nav-heading">
         <img src="@/assets/icon.png" class="nav-icon"/>
         COVID-19 INDIA
@@ -105,6 +105,5 @@ export default {
   }
   .nav-icon {
     height: 2.2em;
-    filter: invert(100%);
   }
 </style>

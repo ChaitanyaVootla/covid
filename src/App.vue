@@ -21,7 +21,7 @@ export default {
     font-family: sans-serif;
     font-size: 22px!important;
     font-weight: 700;
-    background-color: #f5f5f5;
+    background-color: #ddd;
     margin: 0;
   }
   .card {
@@ -93,6 +93,9 @@ export default {
     overflow-y: auto !important;
   }
   .el-tabs__item.is-active {
+    color: #555 !important;
+  }
+  .el-switch__label.is-active {
     color: #555 !important;
   }
 </style>

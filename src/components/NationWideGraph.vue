@@ -2,25 +2,28 @@
   <div>
     <el-row>
       <el-col :span="12" :offset="12" class="text-right">
-        <el-dropdown trigger="hover">
-          <span class="el-dropdown-link">
-            {{selectedGraphType}}<i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="switchData('total')">TOTAL CASES</el-dropdown-item>
-            <el-dropdown-item @click.native="switchData('daily')">DAILY INCREASE</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <el-switch
+          v-model="isDailySelected"
+          active-color="#F57C00"
+          inactive-color="#388E3C"
+          active-text="DAILY"
+          inactive-text="TOTAL"
+          @change="switchData('daily')">
+        </el-switch>
       </el-col>
     </el-row>
-    <canvas id="canvas"></canvas>
+    <el-row>
+      <el-col :span="12" v-for="graph in graphTypes" :key="graph.name">
+        <canvas :id="`${graph.name}Canvas`"></canvas>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import store from "../store";
 import Chart from 'chart.js';
-import { options } from '../utils/chartOptions'
+import { options, graphTypes } from '../utils/chartOptions'
 
 export default {
   name: "NationWideGraph",
@@ -33,64 +36,57 @@ export default {
   },
   data() {
     return {
-      timeSeriesGraph: null,
-      selectedGraphType: 'TOTAL CASES'
+      timeSeriesGraphs: [],
+      isDailySelected: false,
+      selectedGraphTypes: [
+        'total',
+        'daily'
+      ],
+      selectedGraphType: 'total',
+      graphTypes,
     }
   },
   mounted() {
-    const ctx = document.getElementById('canvas').getContext('2d');
-    this.timeSeriesGraph = new Chart(
-        ctx,
-        {
-          type: 'line',
-          data: {
-            labels: this.nationWideTimeSeries.map(data => data.date),
-            datasets: [
-              {
-                label: 'CONFIRMED',
-                data: this.nationWideTimeSeries.map(data => data.totalconfirmed),
-                fill: false,
-                borderColor: "#F57C00",
-                prop: 'confirmed',
-              },
-              {
-                label: 'RECOVERED',
-                data: this.nationWideTimeSeries.map(data => data.totalrecovered),
-                fill: false,
-                borderColor: "#388E3C",
-                prop: 'recovered',
-              },
-              {
-                label: 'DEATHS',
-                data: this.nationWideTimeSeries.map(data => data.totaldeceased),
-                fill: false,
-                borderColor: "#909399",
-                prop: 'deceased',
-              },
-            ]
-          },
-          options,
-        }
-    );
+    graphTypes.forEach(
+      graphType => {
+        const context = document.getElementById(graphType.name + 'Canvas').getContext('2d');
+        const newChart = new Chart(
+          context,
+          {
+            type: 'line',
+            data: {
+              labels: this.nationWideTimeSeries.map(data => data.date),
+              datasets: [
+                {
+                  label: graphType.title,
+                  data: this.nationWideTimeSeries.map(data => data[`total${graphType.name}`]),
+                  fill: false,
+                  borderColor: graphType.color,
+                  prop: graphType.name,
+                },
+              ]
+            },
+            options,
+          }
+        );
+        this.timeSeriesGraphs.push(newChart);
+      }
+    )
   },
   methods: {
-    switchData(type) {
-      if (type === 'total') {
-        this.selectedGraphType = 'TOTAL CASES';
-        this.timeSeriesGraph.data.datasets.forEach(
+    switchData() {
+      if (this.selectedGraphTypes[0] === this.selectedGraphType)
+        this.selectedGraphType = this.selectedGraphTypes[1];
+      else
+        this.selectedGraphType = this.selectedGraphTypes[0];
+      this.timeSeriesGraphs.forEach(graph => {
+        graph.data.datasets.forEach(
           (dataset) => {
-            dataset.data = this.nationWideTimeSeries.map(data => data[`total${dataset.prop}`])
+            dataset.data = this.nationWideTimeSeries.map(data => data[`${this.selectedGraphType}${dataset.prop}`])
           }
         )
-      } else if (type === 'daily') {
-        this.selectedGraphType = 'DAILY INCREASE';
-        this.timeSeriesGraph.data.datasets.forEach(
-          (dataset) => {
-            dataset.data = this.nationWideTimeSeries.map(data => data[`daily${dataset.prop}`])
-          }
-        )
-      }
-      this.timeSeriesGraph.update();
+        graph.update();
+      });
     }
   }
 };
@@ -98,7 +94,12 @@ export default {
 
 <style scoped lang="less">
   canvas {
-    margin-top: 1em;
-    height: 200px !important;
+    margin-top: 0.6em;
+    height: 150px !important;
+  }
+  .switch-text {
+    font-size: 0.7em;
+    padding: 10px;
+    color: #777 !important;
   }
 </style>

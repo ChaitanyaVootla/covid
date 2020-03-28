@@ -1,14 +1,17 @@
 <template>
   <div>
-    <canvas id="agecanvas"></canvas>
+    <el-row>
+      <el-col :span="12" v-for="graph in graphTypes" :key="graph.name">
+        <canvas :id="`${graph.name}CanvasAge`"></canvas>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import store from "../store";
 import Chart from 'chart.js';
-import { options } from '../utils/chartOptions';
-import _ from 'lodash';
+import { options, graphTypes } from '../utils/chartOptions';
 
 export default {
   name: "AgeGraph",
@@ -47,59 +50,56 @@ export default {
   },
   data() {
     return {
+      graphTypes,
+      specificOptions: {
+        scales: {
+          xAxes: [{
+            ticks: {
+              maxTicksLimit: 3,
+              maxRotation: 0
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)"
+            },
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 3
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)"
+            },
+          }],
+        }
+      }
     }
   },
   mounted() {
-    const ctx = document.getElementById('agecanvas').getContext('2d');
-    this.timeSeriesGraph = new Chart(
-        ctx,
-        {
-          type: 'line',
-          data: {
-            labels: this.chartLabels,
-            datasets: [
-              {
-                label: 'CONFIRMED',
-                data: this.mappedAgeData(this.confirmedAgeArray),
-                fill: false,
-                borderColor: "#F57C00",
+    graphTypes.forEach(
+      graphType => {
+        const ctx = document.getElementById(`${graphType.name}CanvasAge`).getContext('2d');
+        this.timeSeriesGraph = new Chart(
+            ctx,
+            {
+              type: 'line',
+              data: {
+                labels: this.chartLabels,
+                datasets: [
+                  {
+                    label: graphType.title,
+                    data: this.mappedAgeData(this[`${graphType.name}AgeArray`]),
+                    fill: false,
+                    borderColor: graphType.color,
+                  },
+                ]
               },
-              {
-                label: 'RECOVERED',
-                data: this.mappedAgeData(this.recoveredAgeArray),
-                fill: false,
-                borderColor: "#388E3C",
+              options: {
+                  ...options,
+                  ...this.specificOptions
               },
-              {
-                label: 'DEATHS',
-                data: this.mappedAgeData(this.deceasedAgeArray),
-                fill: false,
-                borderColor: "#909399",
-              },
-            ]
-          },
-          options: {
-              ...options,
-              scales: {
-                  xAxes: [{
-                        ticks: {
-                            maxTicksLimit: 5
-                        },
-                        gridLines: {
-                            color: "rgba(0, 0, 0, 0)"
-                        },
-                  }],
-                    yAxes: [{
-                        ticks: {
-                            maxTicksLimit: 3
-                        },
-                        gridLines: {
-                            color: "rgba(0, 0, 0, 0)"
-                        },
-                    }],
-              },
-          },
-        }
+            }
+        );
+      }
     );
   },
   methods: {
@@ -117,7 +117,7 @@ export default {
 <style scoped lang="less">
   canvas {
     margin-top: 1em;
-    height: 250px !important;
+    height: 150px !important;
   }
   #agecanvas {
       margin-left: 0.3em;

@@ -62,7 +62,6 @@ export default {
       const indiaCountArray = [];
       Object.keys(foreignMappedData).map(
         location => {
-          console.log(location, foreignMappedData[location], foreignMappedData[location].length)
           foreignCountArray.push({
             location,
             count: +foreignMappedData[location].length

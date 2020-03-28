@@ -4,8 +4,8 @@ const options = {
     tooltips: {
         intersect: false,
         mode: 'index',
-        bodyFontSize: 15,
-        titleFontSize: 19,
+        bodyFontSize: 12,
+        titleFontSize: 15,
         backgroundColor: "rgba(0, 0, 0, 0.8)",
         titleFontColor: "#388E3C",
         xPadding: 30,
@@ -18,6 +18,7 @@ const options = {
         titleSpacing: 20,
     },
     legend: {
+        display: false,
         position: 'bottom',
         labels: {
             fontStyle: 'bold',
@@ -50,4 +51,21 @@ const options = {
     },
 };
 
-export { options };
+const graphTypes = [
+  {
+    name: 'confirmed',
+    title: 'CONFIRMED',
+    color: '#F57C00'
+  },
+  {
+    name: 'recovered',
+    title: 'RECOVERED',
+    color: '#388E3C'
+  },
+  {
+    name: 'deceased',
+    title: 'DECEASED',
+    color: '#909399'
+  },
+]
+export { options, graphTypes };
