@@ -7,24 +7,45 @@
       </el-menu-item>
     </el-menu>
     <el-row class="mt-20">
-      <el-col :span="10" :offset="2">
-        <div class="nation-wide-stats-container card">
-          <NationWideStats/>
+      <!-- left half -->
+      <el-col :span="9" :offset="2">
+        <div class="nation-wide-stats-container">
+          <el-card shadow="hover" class="m-20">
+            <NationWideStats/>
+          </el-card>
         </div>
-        <div class="state-wise-table-container card">
-          <StateWiseTable/>
+        <div class="state-wise-table-container">
+          <el-card shadow="hover" class="m-20">
+            <StateWiseTable/>
+          </el-card>
         </div>
       </el-col>
+      <!-- right half -->
       <el-col :span="8">
-        <div class="state-wise-table-container" v-if="stateWiseData.length">
-          <NationWideGraph/>
-        </div>
-        <div class="state-wise-table-container" v-if="patientData.length">
-          <AgeGraph/>
-        </div>
-        <div class="gender-stats-container card" v-if="stateWiseData.length">
-          <GenderStats/>
-        </div>
+        <el-card shadow="hover" class="extra-stats-card m-20">
+          <el-tabs :value="'first'">
+            <el-tab-pane label="NATIONAL STATS" name="first">
+              <div class="state-wise-table-container" v-if="stateWiseData.length">
+                <NationWideGraph/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="AGE DISTRIBUTION" name="second">
+              <div class="state-wise-table-container" v-if="patientData.length">
+                <AgeGraph/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="GENDER DISTRIBUTION" name="third">
+              <div class="gender-stats-container" v-if="stateWiseData.length">
+                <GenderStats/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="TRAVEL STATS" name="fourth">
+              <div class="gender-stats-container" v-if="stateWiseData.length">
+                <TravelStats/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -37,6 +58,7 @@ import NationWideStats from '../components/NationWideStats.vue'
 import NationWideGraph from '../components/NationWideGraph.vue'
 import GenderStats from '../components/GenderStats.vue'
 import AgeGraph from '../components/AgeGraph.vue'
+import TravelStats from '../components/TravelStats.vue'
 
 export default {
   name: "Home",
@@ -46,6 +68,7 @@ export default {
     NationWideGraph,
     GenderStats,
     AgeGraph,
+    TravelStats,
   },
   computed: {
     stateWiseData() {
@@ -72,24 +95,6 @@ export default {
   }
   .state-count {
     font-size: 1.2em;
-  }
-  .state-wise-table-container {
-    width: 30em;
-    margin: 1em;
-  }
-  .nation-wide-stats-container {
-    width: 28em;
-    margin: 1em;
-    padding: 1em;
-  }
-  .el-menu.el-menu--horizontal {
-    border: 0;
-  }
-  .gender-stats-container {
-    width: 19em;
-    margin: 1em;
-    padding: 1em;
-    margin-left: 2em;
   }
   /* nav styles */
   .nav-heading{

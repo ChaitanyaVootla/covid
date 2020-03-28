@@ -1,10 +1,5 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="13">
-        <div class="graph-heading">AGE DISTRIBUTION</div>
-      </el-col>
-    </el-row>
     <canvas id="agecanvas"></canvas>
   </div>
 </template>
@@ -122,15 +117,9 @@ export default {
 <style scoped lang="less">
   canvas {
     margin-top: 1em;
-    width: 500px !important;
-    height: 200px !important;
+    height: 250px !important;
   }
   #agecanvas {
       margin-left: 0.3em;
-  }
-  .graph-heading {
-    font-size: 14px;
-    color: #606266;
-    padding: 0.7em 0;
   }
 </style>

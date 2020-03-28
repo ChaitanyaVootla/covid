@@ -1,10 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="13">
-        <div class="graph-heading">NATION WIDE STATS</div>
-      </el-col>
-      <el-col :span="6">
+      <el-col :span="12" :offset="12" class="text-right">
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link">
             {{selectedGraphType}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -54,18 +51,21 @@ export default {
                 data: this.nationWideTimeSeries.map(data => data.totalconfirmed),
                 fill: false,
                 borderColor: "#F57C00",
+                prop: 'confirmed',
               },
               {
                 label: 'RECOVERED',
                 data: this.nationWideTimeSeries.map(data => data.totalrecovered),
                 fill: false,
                 borderColor: "#388E3C",
+                prop: 'recovered',
               },
               {
                 label: 'DEATHS',
                 data: this.nationWideTimeSeries.map(data => data.totaldeceased),
                 fill: false,
                 borderColor: "#909399",
+                prop: 'deceased',
               },
             ]
           },
@@ -99,12 +99,6 @@ export default {
 <style scoped lang="less">
   canvas {
     margin-top: 1em;
-    width: 500px !important;
     height: 200px !important;
-  }
-  .graph-heading {
-    font-size: 14px;
-    color: #606266;
-    padding: 0.7em 0;
   }
 </style>

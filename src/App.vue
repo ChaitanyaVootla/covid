@@ -29,6 +29,9 @@ export default {
   .text-center {
       text-align: center;
   }
+  .text-right {
+      text-align: right;
+  }
   /* text colors */
   .text-danger {
     color: #E53935;
@@ -55,6 +58,9 @@ export default {
   .mt-20 {
     margin-top: 20px;;
   }
+  .m-20 {
+    margin: 20px;
+  }
   .bold {
     font-weight: bold;
   }
@@ -80,5 +86,8 @@ export default {
   }
   .el-table__body-wrapper:hover {
     overflow-y: auto !important;
+  }
+  .el-tabs__item.is-active {
+    color: #555 !important;
   }
 </style>
