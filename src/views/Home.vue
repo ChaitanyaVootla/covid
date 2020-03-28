@@ -4,9 +4,16 @@
       background-color="#ffa500"
       active-text-color="#333"
       text-color="#333">
-      <el-menu-item index="1" class="nav-heading">
+      <el-menu-item class="nav-heading">
         <img src="@/assets/icon.png" class="nav-icon"/>
         COVID-19 INDIA
+      </el-menu-item>
+      <el-menu-item class="source-link float-right">
+        <i class="el-icon-takeaway-box"></i>
+        <span>Data is sourced from </span>
+        <a href="https://www.covid19india.org/" target="_blank">
+          <span>www.covid19india.org</span>
+        </a>
       </el-menu-item>
     </el-menu>
     <el-row class="mt-20">
@@ -26,8 +33,8 @@
       <!-- right half -->
       <el-col :span="8">
         <el-card shadow="always" class="extra-stats-card m-20">
-          <el-tabs :value="'first'">
-            <el-tab-pane label="NATIONAL STATS" name="first">
+          <el-tabs :value="'first'" type="card">
+            <el-tab-pane label="SPREAD TRENDS" name="first">
               <div class="state-wise-table-container" v-if="stateWiseData.length">
                 <NationWideGraph/>
               </div>
@@ -37,14 +44,18 @@
                 <AgeGraph/>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="GENDER DISTRIBUTION" name="third">
-              <div class="gender-stats-container" v-if="stateWiseData.length">
-                <GenderStats/>
-              </div>
-            </el-tab-pane>
+          </el-tabs>
+        </el-card>
+        <el-card shadow="always" class="extra-stats-card m-20">
+          <el-tabs :value="'fourth'" type="card">
             <el-tab-pane label="TRAVEL STATS" name="fourth">
               <div class="gender-stats-container" v-if="stateWiseData.length">
                 <TravelStats/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="GENDER DISTRIBUTION" name="third">
+              <div class="gender-stats-container" v-if="stateWiseData.length">
+                <GenderStats/>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -105,5 +116,8 @@ export default {
   }
   .nav-icon {
     height: 2.2em;
+  }
+  .el-icon-takeaway-box {
+    color: black;
   }
 </style>

@@ -4,7 +4,7 @@
       <el-col :span="12">
         <el-table
           :data="travelPlaceData.foreign"
-          max-height="300"
+          max-height="195"
           width="100%">
           <el-table-column label="Foreign" width="150">
             <template slot-scope="scope">
@@ -16,7 +16,7 @@
       <el-col :span="12">
         <el-table
           :data="travelPlaceData.india"
-          max-height="300"
+          max-height="195"
           width="100%">
           <el-table-column label="Indian" width="150">
             <template slot-scope="scope">

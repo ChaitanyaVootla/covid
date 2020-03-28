@@ -37,6 +37,9 @@ export default {
   .text-left {
       text-align: left !important;
   }
+  .float-right {
+    float: right !important;
+  }
   /* text colors */
   .text-danger {
     color: #E53935;
@@ -91,11 +94,5 @@ export default {
   }
   .el-table__body-wrapper:hover {
     overflow-y: auto !important;
-  }
-  .el-tabs__item.is-active {
-    color: #555 !important;
-  }
-  .el-switch__label.is-active {
-    color: #555 !important;
   }
 </style>
