@@ -88,8 +88,9 @@ export default {
                   {
                     label: graphType.title,
                     data: this.mappedAgeData(this[`${graphType.name}AgeArray`]),
-                    fill: false,
+                    fill: true,
                     borderColor: graphType.color,
+                    backgroundColor: graphType.color,
                   },
                 ]
               },

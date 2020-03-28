@@ -5,7 +5,7 @@
         <el-switch
           v-model="isDailySelected"
           active-color="#F57C00"
-          inactive-color="#388E3C"
+          inactive-color="#F57C00"
           active-text="DAILY"
           inactive-text="TOTAL"
           @change="switchData('daily')">
@@ -37,12 +37,12 @@ export default {
   data() {
     return {
       timeSeriesGraphs: [],
-      isDailySelected: false,
+      isDailySelected: true,
       selectedGraphTypes: [
         'total',
         'daily'
       ],
-      selectedGraphType: 'total',
+      selectedGraphType: 'daily',
       graphTypes,
     }
   },
@@ -59,9 +59,10 @@ export default {
               datasets: [
                 {
                   label: graphType.title,
-                  data: this.nationWideTimeSeries.map(data => data[`total${graphType.name}`]),
-                  fill: false,
+                  data: this.nationWideTimeSeries.map(data => data[`${this.selectedGraphType}${graphType.name}`]),
+                  fill: 'start',
                   borderColor: graphType.color,
+                  backgroundColor: graphType.color,
                   prop: graphType.name,
                 },
               ]

@@ -9,7 +9,7 @@
         COVID-19 INDIA
       </el-menu-item>
       <el-menu-item class="source-link float-right">
-        <i class="el-icon-takeaway-box"></i>
+        <i class="fas fa-database"></i>
         <span>Data is sourced from </span>
         <a href="https://www.covid19india.org/" target="_blank">
           <span>www.covid19india.org</span>
@@ -162,8 +162,10 @@ export default {
   .nav-icon {
     height: 2.2em;
   }
-  .el-icon-takeaway-box {
+  .fa-database {
     color: black;
+    margin-right: 5px;
+    font-size: 1.2em;
   }
   .github-button {
     background-color: #6e5494 !important;

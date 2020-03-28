@@ -130,7 +130,7 @@
         } else {
           return `rgba(255, 0, 0, ${ratio*1.5})`;
         }
-      }
+      },
     }
   };
 </script>
