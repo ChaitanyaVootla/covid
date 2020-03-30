@@ -6,7 +6,7 @@ const options = {
         mode: 'index',
         bodyFontSize: 12,
         titleFontSize: 15,
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         titleFontColor: "#ffa500",
         xPadding: 30,
         position: 'nearest',

@@ -51,7 +51,7 @@
     <el-row>
       <el-col :span="9" :offset="3">
         <el-card shadow="always" class="extra-stats-card m-20">
-          <el-tabs :value="'first'" type="card">
+          <el-tabs :value="'first'">
             <el-tab-pane label="SPREAD TRENDS" name="first">
               <div class="state-wise-table-container" v-if="stateWiseData.length">
                 <NationWideGraph/>
@@ -67,7 +67,7 @@
       </el-col>
       <el-col :span="9">
         <el-card shadow="always" class="extra-stats-card m-20">
-          <el-tabs :value="'fourth'" type="card">
+          <el-tabs :value="'fourth'">
             <el-tab-pane label="PATIENT TRAVEL STATS" name="fourth">
               <div class="gender-stats-container" v-if="stateWiseData.length">
                 <TravelStats/>

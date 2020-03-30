@@ -154,8 +154,8 @@
     margin: 5px 0 !important;
   }
   /deep/ #svg2 {
-    transform: scale(0.8);
-    margin-left: -7em;
+    transform: scale(0.8) scaleX(0.9);
+    margin-left: -8em;
     margin-top: -2em;
   }
   #svg-container {

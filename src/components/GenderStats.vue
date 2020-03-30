@@ -96,8 +96,8 @@ export default {
       }
     },
     averageAge() {
-      const maleAges = this.malePatients.map(({ageEstimate}) => ageEstimate).filter(Boolean);
-      const femaleAges = this.femalePatients.map(({ageEstimate}) => ageEstimate).filter(Boolean);
+      const maleAges = this.malePatients.map(({ageEstimate}) => +ageEstimate).filter(Boolean);
+      const femaleAges = this.femalePatients.map(({ageEstimate}) => +ageEstimate).filter(Boolean);
       return {
           male: this.getAverage(maleAges),
           female: this.getAverage(femaleAges),

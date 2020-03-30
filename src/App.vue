@@ -3,7 +3,8 @@
     <el-menu mode="horizontal"
       background-color="#ffa500"
       active-text-color="#333"
-      text-color="#333">
+      text-color="#333"
+      class="main-nav-bar">
       <el-menu-item class="nav-heading">
         <router-link to="/">
           <img src="@/assets/icon.png" class="nav-icon"/>
@@ -61,6 +62,9 @@ export default {
   }
   .nav-icon {
     height: 2.2em;
+  }
+  .main-nav-bar {
+    padding-bottom: 0.2em;
   }
   .database-icon {
     color: black !important;
