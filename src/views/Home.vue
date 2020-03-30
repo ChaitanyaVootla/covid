@@ -1,21 +1,5 @@
 <template>
   <div>
-    <el-menu mode="horizontal"
-      background-color="#ffa500"
-      active-text-color="#333"
-      text-color="#333">
-      <el-menu-item class="nav-heading">
-        <img src="@/assets/icon.png" class="nav-icon"/>
-        COVID-19 INDIA
-      </el-menu-item>
-      <el-menu-item class="source-link float-right">
-        <i class="fas fa-database"></i>
-        <span>Data is sourced from </span>
-        <a href="https://www.covid19india.org/" target="_blank">
-          <span>www.covid19india.org</span>
-        </a>
-      </el-menu-item>
-    </el-menu>
     <el-row>
       <el-col :span="18" :offset="3">
         <el-card shadow="always" class="m-20 mb-0" v-show="timefilterEnabled">
@@ -153,18 +137,6 @@ export default {
     font-size: 1.4em;
   }
   .state-count {
-    font-size: 1.2em;
-  }
-  /* nav styles */
-  .nav-heading{
-    font-size: 1.1em !important;
-  }
-  .nav-icon {
-    height: 2.2em;
-  }
-  .fa-database {
-    color: black;
-    margin-right: 5px;
     font-size: 1.2em;
   }
   .github-button {

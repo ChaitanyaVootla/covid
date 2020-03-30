@@ -1,5 +1,35 @@
 <template>
   <div id="app">
+    <el-menu mode="horizontal"
+      background-color="#ffa500"
+      active-text-color="#333"
+      text-color="#333">
+      <el-menu-item class="nav-heading">
+        <router-link to="/">
+          <img src="@/assets/icon.png" class="nav-icon"/>
+          COVID-19 INDIA
+        </router-link>
+      </el-menu-item>
+      <!-- <el-menu-item class="nav-route">
+        <router-link to="Travel">
+          <i class="fas fa-route"></i>
+          Travel
+        </router-link>
+      </el-menu-item>
+      <el-menu-item class="nav-route">
+        <router-link to="World">
+          <i class="fas fa-globe-asia"></i>
+          World
+        </router-link>
+      </el-menu-item> -->
+      <el-menu-item class="source-link float-right">
+        <i class="fas fa-database database-icon"></i>
+        <span>Data is sourced from </span>
+        <a href="https://www.covid19india.org/" target="_blank">
+          <span>www.covid19india.org</span>
+        </a>
+      </el-menu-item>
+    </el-menu>
     <router-view />
   </div>
 </template>
@@ -12,96 +42,29 @@ export default {
     store.dispatch('fetchDistrictWiseData');
     store.dispatch('fetchMainData');
     store.dispatch('fetchPatientData');
+    store.dispatch('fetchTravelData');
   }
 }
 </script>
 
-<style>
-  body {
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 22px!important;
-    font-weight: 700;
-    background-color: #ddd;
-    margin: 0;
+<style lang="less">
+  @import "assets/styles/global.less";
+  /* nav styles */
+  .nav-heading{
+    font-size: 1.1em !important;
   }
-  .card {
-      border: 1px solid #ebebeb;
-      border-radius: 3px;
+  .nav-route{
+    font-size: 0.9em !important;
+    & i {
+      color: #333 !important;
+    }
   }
-  .text-center {
-      text-align: center;
+  .nav-icon {
+    height: 2.2em;
   }
-  .text-right {
-      text-align: right;
-  }
-  .text-left {
-      text-align: left !important;
-  }
-  .float-right {
-    float: right !important;
-  }
-  /* text colors */
-  .text-danger {
-    color: #E53935;
-  }
-  .text-warning {
-    color: #F57C00;
-  }
-  .text-success {
-    color: #388E3C;
-  }
-  .text-info {
-    color: #909399;
-  }
-  /* padding, margin helpers */
-  .ml-20 {
-    margin-left: 20px;;
-  }
-  .mt-5 {
-    margin-top: 5px;;
-  }
-  .mt-10 {
-    margin-top: 10px;;
-  }
-  .mt-20 {
-    margin-top: 20px;;
-  }
-  .m-20 {
-    margin: 20px;
-  }
-  .mb-0 {
-    margin-bottom: 0 !important;
-  }
-  .mt-0 {
-    margin-top: 0 !important;
-  }
-  .bold {
-    font-weight: bold;
-  }
-  /* scroll bar style */
-  ::-webkit-scrollbar {
-    width: 7px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #aaa;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  /* table styles*/
-  .el-table th, .el-table td {
-    padding: 5px 0 !important;
-  }
-  .el-table__body-wrapper {
-    overflow-y: hidden !important;
-  }
-  .el-table__body-wrapper:hover {
-    overflow-y: auto !important;
-  }
-  .el-tabs__item {
-    font-weight: 600 !important;
+  .database-icon {
+    color: black !important;
+    margin-right: 5px;
+    font-size: 1.2em;
   }
 </style>

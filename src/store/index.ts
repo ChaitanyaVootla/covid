@@ -11,6 +11,7 @@ export default new Vuex.Store({
     nationWideData: [],
     nationWideTimeSeries: [],
     patientData: [],
+    travelData: [],
   },
   mutations: {
     updateDistrictWiseData(state, data) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     updatePatientData(state, data) {
       state.patientData = data;
     },
+    updateTravelData(state, data) {
+      state.travelData = data;
+    },
   },
   actions: {
     async fetchDistrictWiseData(store) {
@@ -43,6 +47,10 @@ export default new Vuex.Store({
     async fetchPatientData(store) {
       const { data } = await api.getPatientData();
       store.commit('updatePatientData', data.data.rawPatientData);
+    },
+    async fetchTravelData(store) {
+      const { data } = await api.getTravelData();
+      store.commit('updateTravelData', data.data.travel_history);
     },
   },
   getters: {
@@ -60,6 +68,9 @@ export default new Vuex.Store({
     },
     getPatientData(state) {
       return state.patientData;
+    },
+    getTravelData(state) {
+      return state.travelData;
     },
   },
   modules: {}

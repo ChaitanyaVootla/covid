@@ -67,14 +67,14 @@
         :data="dialogPatientsData"
         max-height="600"
         width="100%">
-        <el-table-column label="Status" width="150">
+        <el-table-column label="Status" sortable prop="status">
           <template slot-scope="scope">
             <div class="patient-text text-success" v-if="scope.row.status === 'Recovered'">{{scope.row.status}}</div>
             <div class="patient-text text-warning" v-else-if="scope.row.status === 'Hospitalized'">{{scope.row.status}}</div>
             <div class="patient-text" v-else>{{scope.row.status}}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Age" width="150">
+        <el-table-column label="Age" sortable prop="ageEstimate" :sort-method="sortAge">
           <template slot-scope="scope">
             {{scope.row.ageEstimate?scope.row.ageEstimate:'-'}}
           </template>
@@ -96,12 +96,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Notes" width="150">
+        <el-table-column label="Notes">
           <template slot-scope="scope">
             <div class="patient-text wrap-word">{{scope.row.notes}}</div>
           </template>
         </el-table-column>
-        <el-table-column label="Sources" width="150">
+        <el-table-column label="Sources">
           <template slot-scope="scope">
             <a v-for="source in scope.row.sources" :key="source" :href="source" target="_blank" class="patient-text">
               {{getURLHost(source)}}
@@ -157,6 +157,9 @@
       },
       getURLHost(url) {
         return new URL(url).hostname;
+      },
+      sortAge(row) {
+        return -+row.ageEstimate;
       }
     }
   };

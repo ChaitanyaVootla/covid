@@ -12,17 +12,17 @@
           </span>
 
           <span class="text-danger count-info">{{ currentStateInfo.active }}</span>
-          <span class="text-warning delta-info" v-show="currentStateInfo.delta.active">
+          <span class="text-danger delta-info" v-show="currentStateInfo.delta.active">
             <i class="el-icon-top"></i> {{currentStateInfo.delta.active}}
           </span>
 
           <span class="text-success count-info">{{ currentStateInfo.recovered }}</span>
-          <span class="text-warning delta-info" v-show="currentStateInfo.delta.recovered">
+          <span class="text-success delta-info" v-show="currentStateInfo.delta.recovered">
             <i class="el-icon-top"></i> {{currentStateInfo.delta.recovered}}
           </span>
 
           <span class="text-info count-info">{{ currentStateInfo.deaths }}</span>
-          <span class="text-warning delta-info" v-show="currentStateInfo.delta.deaths">
+          <span class="text-info delta-info" v-show="currentStateInfo.delta.deaths">
             <i class="el-icon-top"></i> {{currentStateInfo.delta.deaths}}
           </span>
         </div>
@@ -54,7 +54,7 @@
     data() {
       return {
         currentStateName: '',
-        darkMapColors: true, 
+        darkMapColors: false, 
       }
     },
     computed: {
@@ -86,7 +86,7 @@
       }
     },
     mounted() {
-      d3.xml('./india.svg')
+      d3.xml('./india2019High.svg')
         .then(data => {
           document.getElementById('svg-container').append(data.documentElement)
           this.setupMap();
@@ -116,7 +116,7 @@
             const d3Element = d3.select(nodesArray[id]);
             const stateInfo = this.getStateInfo(d3Element.attr('title'));
             const rgbValue = this.getColorRampValue(stateInfo.confirmed);
-            d3Element.attr('style', `fill: ${rgbValue}; stroke: #555;`);
+            d3Element.attr('style', `fill: ${rgbValue}; stroke: #555; stroke-width: 0.5px;`);
           }
         )
       },
@@ -152,5 +152,13 @@
   }
   .el-divider--horizontal {
     margin: 5px 0 !important;
+  }
+  /deep/ #svg2 {
+    transform: scale(0.8);
+    margin-left: -7em;
+    margin-top: -2em;
+  }
+  #svg-container {
+    height: 735px !important
   }
 </style>

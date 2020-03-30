@@ -7,7 +7,7 @@ const options = {
         bodyFontSize: 12,
         titleFontSize: 15,
         backgroundColor: "rgba(0, 0, 0, 0.8)",
-        titleFontColor: "#388E3C",
+        titleFontColor: "#ffa500",
         xPadding: 30,
         position: 'nearest',
         bodyFontFamily: "sans-serif",
