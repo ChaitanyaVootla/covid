@@ -29,23 +29,15 @@
       </el-col>
     </el-row>
     <el-divider></el-divider>
-    <div class="float-right">
-      <el-switch
-        v-model="darkMapColors"
-        active-text="DARK"
-        inactive-text="LIGHT"
-        active-color="#333"
-        inactive-color="#eee"
-        @change="setStateColors()">
-      </el-switch>
-    </div>
-    <div id="svg-container">
+    <div id="chartdiv">
     </div>
   </div>
 </template>
 
 <script>
-  import * as d3 from 'd3';
+  import * as am4Core from '@amcharts/amcharts4/core';
+  import * as am4Maps from '@amcharts/amcharts4/maps';
+  import * as indiaMap from '@amcharts/amcharts4-geodata/india2019High';
   import store from "../store";
   import _ from 'lodash';
 
@@ -54,8 +46,56 @@
     data() {
       return {
         currentStateName: '',
-        darkMapColors: false, 
+        darkMapColors: false,
       }
+    },
+    mounted() {
+      const chart = am4Core.create("chartdiv", am4Maps.MapChart);
+      chart.geodata = indiaMap.default;
+      chart.projection = new am4Maps.projections.Mercator();
+      // India states map
+      const indiaSeries = chart.series.push(new am4Maps.MapPolygonSeries());
+      const indiaPolygonTemplate = indiaSeries.mapPolygons.template;
+      indiaSeries.useGeodata = true;
+
+      indiaPolygonTemplate.stroke = am4Core.color("#888888");
+      indiaPolygonTemplate.fill = am4Core.color("#cccccc");
+      const ihs = indiaPolygonTemplate.states.create("hover");
+      ihs.properties.stroke = am4Core.color("#ffa500");
+      indiaPolygonTemplate.propertyFields.fill = "color";
+      indiaPolygonTemplate.events.on('over', this.onStateHovered);
+      const countriesByName = _.mapKeys(indiaMap.default.features.map(({ properties }) => properties), 'name');
+      indiaSeries.data = this.stateWiseData.map(
+        data => {
+          return {
+            id: countriesByName[data.state].id,
+            color: am4Core.color(this.getColorRampValue(data.confirmed)),
+          };
+        }
+      )
+      this.currentStateName = this.maxConfirmedState.state;
+      // Show current location of user
+      const imageSeries = chart.series.push(new am4Maps.MapImageSeries());
+      const imageSeriesTemplate = imageSeries.mapImages.template;
+      const circle = imageSeriesTemplate.createChild(am4Core.Circle);
+      circle.radius = 5;
+      circle.fill = am4Core.color("#ffa500");
+      circle.stroke = am4Core.color("#000");
+      circle.strokeWidth = 2;
+      circle.nonScaling = true;
+      circle.tooltipText = "{title}";
+      imageSeriesTemplate.propertyFields.latitude = "latitude";
+      imageSeriesTemplate.propertyFields.longitude = "longitude";
+      navigator.geolocation.getCurrentPosition(
+        res => {
+          imageSeries.data = [{
+            id: 'CLOCATION',
+            latitude: res.coords.latitude,
+            longitude: res.coords.longitude,
+            title: "Your Location"
+          }];
+        }
+      );
     },
     computed: {
       patientData() {
@@ -85,40 +125,16 @@
         );
       }
     },
-    mounted() {
-      d3.xml('./india2019High.svg')
-        .then(data => {
-          document.getElementById('svg-container').append(data.documentElement)
-          this.setupMap();
-        }
-      );
-    },
     methods: {
+      onStateHovered(ev) {
+        const stateName = ev.target.dataItem.dataContext.name;
+        this.updateCurrentState(stateName);
+      },
       updateCurrentState(stateName) {
         this.currentStateName = stateName;
       },
       getStateInfo(stateName) {
         return this.stateWiseData.find(({state}) => state ===stateName);
-      },
-      setupMap() {
-        d3.selectAll('path').on('mouseover',
-          (data, id, nodesArray) => {
-            const d3Element = d3.select(nodesArray[id]);
-            this.updateCurrentState(d3Element.attr('title'));
-          }
-        );
-        this.setStateColors();
-        this.currentStateName = this.maxConfirmedState.state;
-      },
-      setStateColors() {
-        d3.selectAll('path').each(
-          (data, id, nodesArray) => {
-            const d3Element = d3.select(nodesArray[id]);
-            const stateInfo = this.getStateInfo(d3Element.attr('title'));
-            const rgbValue = this.getColorRampValue(stateInfo.confirmed);
-            d3Element.attr('style', `fill: ${rgbValue}; stroke: #555; stroke-width: 0.5px;`);
-          }
-        )
       },
       getColorRampValue(count) {
         const redOffset = 50;
@@ -132,13 +148,13 @@
         }
       },
     }
-  };
+  }
 </script>
 
-<style scoped lang="less">
-  /deep/ path:hover {
-    stroke: #ffa500 !important;
-    stroke-width: 3px;
+<style lang="less" scoped>
+  #chartdiv {
+    width: 100%;
+    height: 696px;
   }
   .delta-info {
     font-size: 0.7em;
@@ -149,16 +165,5 @@
   }
   .count-info {
     padding-left: 20px;
-  }
-  .el-divider--horizontal {
-    margin: 5px 0 !important;
-  }
-  /deep/ #svg2 {
-    transform: scale(0.8) scaleX(0.9);
-    margin-left: -8em;
-    margin-top: -2em;
-  }
-  #svg-container {
-    height: 735px !important
   }
 </style>

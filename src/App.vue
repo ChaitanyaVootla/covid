@@ -18,6 +18,12 @@
         </router-link>
       </el-menu-item>
       <el-menu-item class="nav-route">
+        <router-link to="Map">
+          <i class="fas fa-map"></i>
+          Map
+        </router-link>
+      </el-menu-item>
+      <el-menu-item class="nav-route">
         <router-link to="World">
           <i class="fas fa-globe-asia"></i>
           World
@@ -31,7 +37,7 @@
         </a>
       </el-menu-item>
     </el-menu>
-    <router-view />
+    <router-view v-if="isStateInfoLoaded" v-loading="!isStateInfoLoaded"/>
   </div>
 </template>
 
@@ -44,6 +50,11 @@ export default {
     store.dispatch('fetchMainData');
     store.dispatch('fetchPatientData');
     store.dispatch('fetchTravelData');
+  },
+  computed: {
+    isStateInfoLoaded() {
+      return store.getters.getStateWiseData.length;
+    }
   }
 }
 </script>
@@ -52,10 +63,10 @@ export default {
   @import "assets/styles/global.less";
   /* nav styles */
   .nav-heading{
-    font-size: 1.1em !important;
+    font-size: 1em !important;
   }
   .nav-route{
-    font-size: 0.9em !important;
+    font-size: 0.8em !important;
     & i {
       color: #333 !important;
     }

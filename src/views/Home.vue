@@ -54,7 +54,7 @@
           <el-tabs :value="'first'">
             <el-tab-pane label="SPREAD TRENDS" name="first">
               <div class="state-wise-table-container" v-if="stateWiseData.length">
-                <NationWideGraph/>
+                <NationWideChart/>
               </div>
             </el-tab-pane>
             <el-tab-pane label="AGE DISTRIBUTION" name="second">
@@ -95,18 +95,20 @@ import AgeGraph from '../components/AgeGraph.vue'
 import TravelStats from '../components/TravelStats.vue'
 import IndiaMap from '../components/IndiaMap.vue'
 import TimeSlider from '../components/TimeSlider.vue'
+import NationWideChart from '../components/NationWideChart.vue'
 
 export default {
   name: "Home",
   components: {
     StateWiseTable,
     NationWideStats,
-    NationWideGraph,
+    // NationWideGraph,
     GenderStats,
     AgeGraph,
     TravelStats,
     IndiaMap,
     TimeSlider,
+    NationWideChart,
   },
   computed: {
     stateWiseData() {

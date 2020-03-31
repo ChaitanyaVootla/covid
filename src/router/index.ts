@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Travel from "../views/Travel.vue";
 import World from "../views/World.vue";
+import Map from "../views/Map.vue";
 
 Vue.use(VueRouter);
 
@@ -13,14 +13,14 @@ const routes = [
     component: Home
   },
   {
-    path: "/Travel",
-    name: "Travel",
-    component: Travel
-  },
-  {
     path: "/World",
     name: "World",
     component: World
+  },
+  {
+    path: "/Map",
+    name: "Map",
+    component: Map
   },
 ];
 
