@@ -63,11 +63,13 @@
             "timeUnit": "hour",
             "count": 1
           };
+          dateAxis.renderer.grid.template.disabled = true;
           dateAxis.cursorTooltipEnabled = false;
           const countAxis = chart.yAxes.push(new am4Charts.ValueAxis());
           countAxis.cursorTooltipEnabled = false;
           countAxis.fontSize = 12;
           countAxis.fill = am4Core.color(graphType.color);
+          countAxis.renderer.grid.template.disabled = true;
 
           // Series
           const series = chart.series.push(new am4Charts.LineSeries());
