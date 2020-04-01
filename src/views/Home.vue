@@ -9,7 +9,8 @@
     </el-row>
     <el-row>
       <!-- left half -->
-      <el-col :span="9" :offset="3">
+      <el-col :xs="{span: 22, offset: 1}" :sm="{span: 22, offset: 1}" :md="{span: 22, offset: 1}"
+        :lg="{span: 9, offset: 3}" :xl="{span: 9, offset: 3}">
         <div class="nation-wide-stats-container">
           <el-card shadow="always" class="m-20">
             <NationWideStats/>
@@ -22,12 +23,13 @@
         </div>
       </el-col>
       <!-- right half -->
-      <el-col :span="9">
+      <el-col :xs="{span: 22, offset: 1}" :sm="{span: 22, offset: 1}" :md="{span: 22, offset: 1}"
+        :lg="{span: 9, offset: 0}" :xl="{span: 9, offset: 0}">
         <el-card shadow="always" class="m-20">
           <IndiaMap v-if="stateWiseData.length"/>
         </el-card>
       </el-col>
-      <el-col :span="1" :offset="2">
+      <!-- <el-col :span="1" :offset="2">
         <div class="m-20">
           <div>
             <el-tooltip class="item mt-20" effect="dark" content="Time slider (coming soon!)" placement="left">
@@ -46,10 +48,11 @@
             </el-tooltip>
           </div>
         </div>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row>
-      <el-col :span="9" :offset="3">
+      <el-col :xs="{span: 22, offset: 1}" :sm="{span: 22, offset: 1}" :md="{span: 22, offset: 1}"
+        :lg="{span: 9, offset: 3}" :xl="{span: 9, offset: 3}">
         <el-card shadow="always" class="extra-stats-card m-20">
           <el-tabs :value="'first'">
             <el-tab-pane label="SPREAD TRENDS" name="first">
@@ -59,13 +62,14 @@
             </el-tab-pane>
             <el-tab-pane label="AGE DISTRIBUTION" name="second">
               <div class="state-wise-table-container" v-if="patientData.length">
-                <AgeGraph/>
+                <AgeCharts/>
               </div>
             </el-tab-pane>
           </el-tabs>
         </el-card>
       </el-col>
-      <el-col :span="9">
+      <el-col :xs="{span: 22, offset: 1}" :sm="{span: 22, offset: 1}" :md="{span: 22, offset: 1}"
+        :lg="{span: 9, offset: 0}" :xl="{span: 9, offset: 0}">
         <el-card shadow="always" class="extra-stats-card m-20">
           <el-tabs :value="'fourth'">
             <el-tab-pane label="PATIENT TRAVEL STATS" name="fourth">
@@ -89,26 +93,24 @@
 import store from "../store";
 import StateWiseTable from '../components/StateWiseTable.vue'
 import NationWideStats from '../components/NationWideStats.vue'
-import NationWideGraph from '../components/NationWideGraph.vue'
 import GenderStats from '../components/GenderStats.vue'
-import AgeGraph from '../components/AgeGraph.vue'
 import TravelStats from '../components/TravelStats.vue'
 import IndiaMap from '../components/IndiaMap.vue'
 import TimeSlider from '../components/TimeSlider.vue'
 import NationWideChart from '../components/NationWideChart.vue'
+import AgeCharts from '../components/AgeCharts.vue'
 
 export default {
   name: "Home",
   components: {
     StateWiseTable,
     NationWideStats,
-    // NationWideGraph,
     GenderStats,
-    AgeGraph,
     TravelStats,
     IndiaMap,
     TimeSlider,
     NationWideChart,
+    AgeCharts,
   },
   computed: {
     stateWiseData() {
